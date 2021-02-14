@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 /** 
   An event could look like this:
   ```
@@ -5,6 +7,12 @@
     id: 107,
     startsAt: '2021-01-27T13:01:11Z', 
     endsAt: '2021-01-27T15:01:11Z', 
+    title: 'Daily walk',
+  },
+  {
+    id: 107,
+    startsAt: '2021-01-29T13:01:11Z', 
+    endsAt: '2021-01-29T15:01:11Z', 
     title: 'Daily walk',
   }
   ```
@@ -24,6 +32,9 @@
     ],
     2: [
       { id: 5676, startsAt: '2021-01-29T13:01:11Z',  endsAt: '2021-01-27T15:01:11Z',  title: 'Daily walk' },
+    ],
+    [
+      
     ]
   }
  ```
@@ -31,7 +42,29 @@
  Your solution should not modify any of the function arguments
 */
 const groupEventsByDay = (events) => {
-  return events;
+  var eventsMap = {};
+
+  let sortedEvents = events.sort(
+    (a, b) => new Date(a.startsAt.toString()) - new Date(b.startsAt.toString()),
+  );
+
+  // convert to moment first date
+  let momentFirstDate = moment(sortedEvents[0].startsAt);
+
+  events.forEach((event) => {
+    let date = moment(event.startsAt);
+
+    // get the difference between the first date and this one to insert as key in map
+    let difference = date.diff(momentFirstDate, 'days');
+
+    if (difference in eventsMap) {
+      eventsMap[difference].push(event);
+    } else {
+      eventsMap[difference] = new Array(event);
+    }
+  });
+
+  return eventsMap;
 };
 
 /** 
@@ -69,6 +102,46 @@ const groupEventsByDay = (events) => {
 
   Your solution should not modify any of the function arguments
 */
+const DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ss[Z]';
 const moveEventToDay = (eventsByDay, id, toDay) => {
+  Object.keys(eventsByDay).forEach((key) => {
+    let eventWeCareAbout = eventsByDay[key].filter((e) => e.id == id);
+    let arrayWithoutEventWeCareAbout = eventsByDay[key].filter(
+      (e) => e.id != id,
+    );
+    eventsByDay[key] = new Array(...arrayWithoutEventWeCareAbout);
+    if (eventsByDay[key] < 1) {
+      delete eventsByDay[key];
+    }
+
+    if (eventWeCareAbout.length > 0) {
+      let dayDifferance = toDay - key;
+      let origionalDate = eventWeCareAbout[0].startsAt;
+      let updatedEvent = {
+        ...eventWeCareAbout[0],
+        startsAt: moment(origionalDate)
+          .add(dayDifferance, 'days')
+          .format(DATE_FORMAT),
+        endsAt: moment(origionalDate)
+          .add(dayDifferance, 'days')
+          .format(DATE_FORMAT),
+      };
+      if (!eventsByDay[toDay]) {
+        eventsByDay[toDay] = new Array(updatedEvent);
+      } else {
+        eventsByDay[toDay].push(updatedEvent);
+      }
+    }
+  });
+
   return eventsByDay;
+};
+
+module.exports = function () {
+  this.groupEvents = function (events) {
+    return groupEventsByDay(events);
+  };
+  this.moveEvent = function (eventsByDay, id, toDay) {
+    return moveEventToDay(eventsByDay, id, toDay);
+  };
 };

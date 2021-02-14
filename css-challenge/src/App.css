@@ -17,12 +17,176 @@ body {
 }
 
 .Container {
-  align-items: center;
   background-color: rgb(62, 126, 184);
   border-radius: 25px;
   color: white;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   font-weight: bold;
+  flex-direction: column;
   padding: 40px;
+  padding-bottom: 80px;
+}
+
+.TopBar {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+}
+
+.narrow {
+  width: 60px;
+  /* Just so it's visible */
+}
+.wide {
+  flex: 1;
+  /* Grow to rest of container */
+  /* Just so it's visible */
+}
+
+.header {
+  font-size: 24px;
+}
+
+.smallHeader {
+  font-size: 16px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.subtitle {
+  color: rgb(164, 196, 222);
+}
+
+.ImageContainer {
+  width: 48px;
+  height: 48px;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgb(82, 140, 192);
+}
+
+.NoBorderButton {
+  border: none;
+  background: none;
+}
+
+.Search {
+  background: rgb(82, 140, 192);
+  border-radius: 8px;
+  vertical-align: top;
+  width: 100%;
+  margin: 20px;
+  margin-right: 60px;
+  margin-left: 40px;
+  display: flex;
+  align-items: left;
+  justify-content: left;
+}
+
+.SearchInput {
+  border: none;
+  background-color: rgb(82, 140, 192);
+  font-size: 18px;
+  border-radius: 8px;
+  padding: 8px;
+  font-weight: bold;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+.Feelings {
+  border-radius: 8px;
+  width: 100%;
+  padding: 8px;
+}
+
+.FeelingsButtonsContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+  padding: 8px;
+  margin-top: 20px;
+}
+
+.FeelingsDescriptionsContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+.Button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.marginTop8 {
+  margin-top: 8px;
+}
+
+.Activities {
+  background-color: white;
+  height: 480px;
+  width:100%;
+  margin-top: -40px;
+  border-radius:25px;
+  padding: 40px;
+}
+
+.black {
+  color: black;
+  font-weight: bolder;
+}
+
+.orange {
+  background: rgb(226, 138, 96);
+}
+
+.pink {
+  background: rgb(232, 102, 127);
+}
+
+.ExercisesContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-evenly;
+  padding: 8px;
+  margin-top: 8px;
+}
+
+.Exercise {
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    margin: 12px;
+    border: 1px solid lightgray;
+    padding: 10px;
+    box-shadow: 2px 2px 2px #888888;
+}
+
+.MenuContainer {
+  border-top: 1px solid lightgray;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+  padding: 8px;
+  margin-top: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: -80px;
 }
